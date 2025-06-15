@@ -25,7 +25,7 @@ export const PoemList = ({ poems, loading, error }) => {
   }
 
   return (
-    <div>
+    <div className={styles.poemContainer}>
       {poems.map((poem, index) => (
         <div key={poem.id || index} className={styles.poemCard}>
           <div className={styles.poemHeader}>

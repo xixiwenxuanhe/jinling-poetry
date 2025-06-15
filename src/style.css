@@ -1,3 +1,6 @@
+/* 导入字体 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;700&display=swap');
+
 /* 重置和基础样式 */
 * {
   margin: 0;
@@ -16,336 +19,141 @@
   --border-color: #C0C0C0; /* 银灰 */
   
   /* 组件需要的颜色变量 */
-  --card-bg: white;
+  --card-bg: rgba(255, 255, 255, 0.95);
   --text-primary: #2F2F2F;
   --text-secondary: #666666;
+  --panel-bg: rgba(255, 255, 255, 0.9);
+  --dashboard-bg: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
   
   /* 字体 */
   --font-family: 'Noto Serif SC', serif;
-  --title-font-size: 2.5rem;
-  --subtitle-font-size: 1.2rem;
-  --body-font-size: 1rem;
   
-  /* 间距 */
-  --container-max-width: 1200px;
-  --section-padding: 3rem 0;
-  --card-padding: 1.5rem;
+  /* 大屏尺寸 */
+  --header-height: 80px;
+  --footer-height: 40px;
+  --panel-padding: 20px;
+  --gap: 20px;
 }
 
 body {
   font-family: var(--font-family);
-  font-size: var(--body-font-size);
-  line-height: 1.6;
-  color: var(--dark-color);
-  background: linear-gradient(135deg, var(--paper-color) 0%, #FFF8DC 100%);
-  min-height: 100vh;
+  color: var(--text-primary);
+  background: var(--dashboard-bg);
+  height: 100vh;
+  overflow: hidden; /* 大屏不滚动 */
 }
 
-.container {
-  max-width: var(--container-max-width);
-  margin: 0 auto;
-  padding: 0 1rem;
+/* 大屏布局容器 */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--dashboard-bg);
 }
 
-/* 页面头部 */
-.header {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+/* 顶部标题栏 */
+.dashboard-header {
+  height: var(--header-height);
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   color: white;
-  padding: 2rem 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+  border-bottom: 2px solid var(--accent-color);
 }
 
-.header::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M20 20c0 0 0-18 0-18s18 0 18 0 0 18 0 18-18 0-18 0z'/%3E%3C/g%3E%3C/svg%3E") repeat;
-  animation: float 20s linear infinite;
-}
-
-@keyframes float {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-.main-title {
-  font-size: var(--title-font-size);
+.dashboard-title {
+  font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
-  letter-spacing: 0.1em;
-  position: relative;
-  z-index: 1;
+  margin-bottom: 5px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.subtitle {
-  font-size: var(--subtitle-font-size);
-  font-weight: 300;
+.dashboard-subtitle {
+  font-size: 1rem;
   opacity: 0.9;
-  position: relative;
-  z-index: 1;
+  font-weight: 300;
 }
 
 /* 主要内容区域 */
-.main-content {
-  padding: var(--section-padding);
-}
-
-section {
-  margin-bottom: 3rem;
-}
-
-h2 {
-  font-size: 1.8rem;
-  color: var(--primary-color);
-  margin-bottom: 1.5rem;
-  text-align: center;
-  position: relative;
-}
-
-h2::after {
-  content: '';
-  display: block;
-  width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
-  margin: 0.5rem auto;
-}
-
-/* 数据概览 */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-
-.stat-card {
-  background: white;
-  padding: var(--card-padding);
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--border-color);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.stat-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-}
-
-.stat-number {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--secondary-color);
-  margin-bottom: 0.5rem;
-}
-
-.stat-label {
-  font-size: 1rem;
-  color: var(--primary-color);
-  font-weight: 500;
-}
-
-/* 朝代分布图表 */
-.dynasty-chart {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--border-color);
-  min-height: 300px;
-}
-
-/* 筛选控件 */
-.filter-controls {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-}
-
-.filter-controls select,
-.filter-controls input {
-  padding: 0.75rem 1rem;
-  border: 2px solid var(--border-color);
-  border-radius: 8px;
-  font-size: 1rem;
-  font-family: var(--font-family);
-  transition: border-color 0.3s ease;
-}
-
-.filter-controls select:focus,
-.filter-controls input:focus {
-  outline: none;
-  border-color: var(--primary-color);
-}
-
-.filter-controls input {
+.dashboard-main {
   flex: 1;
-  min-width: 200px;
-}
-
-/* 诗歌列表 */
-.poem-list {
-  display: grid;
-  gap: 1.5rem;
-}
-
-.poem-card {
-  background: white;
-  padding: var(--card-padding);
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--border-color);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border-left: 4px solid var(--accent-color);
-}
-
-.poem-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-}
-
-.poem-header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  flex-direction: column;
+  padding: var(--gap);
+  gap: var(--gap);
+  overflow: hidden;
 }
 
-.poem-title {
-  font-size: 1.3rem;
+/* 顶部数据概览 */
+.dashboard-overview {
+  height: 120px;
+  flex-shrink: 0;
+}
+
+/* 中间内容区域 */
+.dashboard-content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+  overflow: hidden;
+}
+
+/* 左右面板 */
+.dashboard-left,
+.dashboard-right {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 面板样式 */
+.panel {
+  background: var(--panel-bg);
+  border-radius: 12px;
+  padding: var(--panel-padding);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.panel-title {
+  font-size: 1.4rem;
   font-weight: 600;
   color: var(--primary-color);
-  margin: 0;
+  margin-bottom: 15px;
+  text-align: center;
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 10px;
 }
 
-.poem-meta {
+/* 诗歌展示区域 */
+.poem-display {
+  flex: 1;
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 底部状态栏 */
+.dashboard-footer {
+  height: var(--footer-height);
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--gap);
+  color: white;
   font-size: 0.9rem;
-  color: #666;
-}
-
-.poem-author {
-  color: var(--secondary-color);
-  font-weight: 500;
-}
-
-.poem-dynasty {
-  background: var(--accent-color);
-  color: white;
-  padding: 0.2rem 0.6rem;
-  border-radius: 12px;
-  font-size: 0.8rem;
-  font-weight: 500;
-}
-
-.poem-content {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: var(--dark-color);
-  white-space: pre-line;
-  background: var(--paper-color);
-  padding: 1rem;
-  border-radius: 8px;
-  border-left: 3px solid var(--accent-color);
-  font-style: italic;
-}
-
-/* 分页 */
-.pagination {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 2rem;
-}
-
-.pagination button {
-  padding: 0.5rem 1rem;
-  border: 2px solid var(--border-color);
-  background: white;
-  color: var(--dark-color);
-  border-radius: 6px;
-  cursor: pointer;
-  font-family: var(--font-family);
-  transition: all 0.3s ease;
-}
-
-.pagination button:hover {
-  background: var(--primary-color);
-  color: white;
-  border-color: var(--primary-color);
-}
-
-.pagination button.active {
-  background: var(--secondary-color);
-  color: white;
-  border-color: var(--secondary-color);
-}
-
-.pagination button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* 页脚 */
-.footer {
-  background: var(--dark-color);
-  color: white;
-  padding: 2rem 0;
-  text-align: center;
-  margin-top: 3rem;
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-  :root {
-    --title-font-size: 2rem;
-    --subtitle-font-size: 1rem;
-  }
-  
-  .container {
-    padding: 0 0.5rem;
-  }
-  
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .poem-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .filter-controls {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 480px) {
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* 无结果状态 */
-.no-results {
-  text-align: center;
-  padding: 3rem;
-  color: #666;
-  font-size: 1.1rem;
-  background: white;
-  border-radius: 12px;
-  border: 2px dashed var(--border-color);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* 全局加载和错误状态样式 */
@@ -355,67 +163,106 @@ h2::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  backdrop-filter: blur(5px);
 }
 
 .loading-content, .error-content {
-  background: var(--card-bg);
-  padding: 2rem;
-  border-radius: 12px;
+  background: var(--panel-bg);
+  padding: 3rem;
+  border-radius: 16px;
   text-align: center;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  max-width: 400px;
+  box-shadow: 0 16px 64px rgba(0, 0, 0, 0.4);
+  max-width: 500px;
   margin: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(139, 69, 19, 0.2);
-  border-top: 3px solid var(--accent-color);
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(139, 69, 19, 0.2);
+  border-top: 4px solid var(--accent-color);
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin: 0 auto 1rem;
+  margin: 0 auto 1.5rem;
 }
 
 .loading-text {
   color: var(--text-primary);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 
 .error-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
 }
 
 .error-message {
   color: var(--text-primary);
-  font-size: 1.1rem;
-  margin-bottom: 1.5rem;
-  line-height: 1.5;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
 }
 
 .error-retry {
   background: var(--secondary-color);
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
+  padding: 1rem 2rem;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(220, 20, 60, 0.3);
 }
 
 .error-retry:hover {
   background: var(--primary-color);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 20, 60, 0.4);
 }
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* 响应式调整 - 针对超大屏 */
+@media (min-width: 1920px) {
+  :root {
+    --header-height: 100px;
+    --panel-padding: 30px;
+    --gap: 30px;
+  }
+  
+  .dashboard-title {
+    font-size: 3rem;
+  }
+  
+  .dashboard-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .panel-title {
+    font-size: 1.6rem;
+  }
+}
+
+/* 针对较小屏幕的调整 */
+@media (max-width: 1366px) {
+  .dashboard-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+  
+  .dashboard-left {
+    max-height: 300px;
+  }
 }

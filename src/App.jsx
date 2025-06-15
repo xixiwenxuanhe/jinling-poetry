@@ -95,57 +95,60 @@ export const App = () => {
   }
 
   return (
-    <div id="app">
-      {/* 页面头部 */}
-      <header className="header">
-        <div className="container">
-          <h1 className="main-title">数观千年</h1>
-          <p className="subtitle">金陵历朝诗韵数据可视化</p>
-        </div>
+    <div className="dashboard">
+      {/* 顶部标题栏 */}
+      <header className="dashboard-header">
+        <h1 className="dashboard-title">数观千年</h1>
+        <p className="dashboard-subtitle">金陵历朝诗韵数据可视化大屏</p>
       </header>
 
-      {/* 主要内容区域 */}
-      <main className="main-content">
-        <div className="container">
-          {/* 数据概览 */}
-          <section className="overview">
-            <h2>数据概览</h2>
-            <DataOverview stats={stats} />
-          </section>
+      {/* 主要内容区域 - 大屏布局 */}
+      <main className="dashboard-main">
+        {/* 顶部数据概览 */}
+        <section className="dashboard-overview">
+          <DataOverview stats={stats} />
+        </section>
 
-          {/* 朝代分布 */}
-          <section className="dynasty-section">
-            <h2>朝代分布</h2>
-            <DynastyChart dynastyStats={dynastyStats} />
-          </section>
+        {/* 中间区域 - 左右分栏 */}
+        <section className="dashboard-content">
+          {/* 左侧 - 朝代分布图表 */}
+          <div className="dashboard-left">
+            <div className="panel">
+              <h3 className="panel-title">朝代分布</h3>
+              <DynastyChart dynastyStats={dynastyStats} />
+            </div>
+          </div>
 
-          {/* 诗歌列表 */}
-          <section className="poem-section">
-            <h2>诗歌浏览</h2>
-            <SearchFilter 
-              dynastyStats={dynastyStats} 
-              onFilterChange={handleFilterChange} 
-            />
-            <PoemList 
-              poems={paginatedData.poems}
-              loading={false}
-              error={null}
-            />
-            <Pagination 
-              currentPage={paginatedData.currentPage}
-              totalItems={paginatedData.totalItems}
-              itemsPerPage={itemsPerPage}
-              onPageChange={handlePageChange}
-            />
-          </section>
-        </div>
+          {/* 右侧 - 诗歌浏览 */}
+          <div className="dashboard-right">
+            <div className="panel">
+              <h3 className="panel-title">诗歌浏览</h3>
+              <SearchFilter 
+                dynastyStats={dynastyStats} 
+                onFilterChange={handleFilterChange} 
+              />
+              <div className="poem-display">
+                <PoemList 
+                  poems={paginatedData.poems}
+                  loading={false}
+                  error={null}
+                />
+                <Pagination 
+                  currentPage={paginatedData.currentPage}
+                  totalItems={paginatedData.totalItems}
+                  itemsPerPage={itemsPerPage}
+                  onPageChange={handlePageChange}
+                />
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
 
-      {/* 页脚 */}
-      <footer className="footer">
-        <div className="container">
-          <p>&copy; 2023 ChinaVis数据可视化挑战赛 - 数观千年项目</p>
-        </div>
+      {/* 底部状态栏 */}
+      <footer className="dashboard-footer">
+        <span>ChinaVis 2023 数据可视化挑战赛</span>
+        <span>数据更新时间: {new Date().toLocaleString()}</span>
       </footer>
     </div>
   )

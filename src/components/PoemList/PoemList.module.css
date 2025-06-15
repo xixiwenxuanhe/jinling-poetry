@@ -1,16 +1,42 @@
+.poem-container {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.poem-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.poem-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+
+.poem-container::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 3px;
+}
+
+.poem-container::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-color);
+}
+
 .poem-card {
   background: var(--card-bg);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(139, 69, 19, 0.1);
   transition: all 0.3s ease;
+  border-left: 3px solid var(--accent-color);
 }
 
 .poem-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  border-left-color: var(--secondary-color);
 }
 
 .poem-header {
@@ -53,11 +79,17 @@
 }
 
 .poem-content {
-  font-size: 1rem;
-  line-height: 1.8;
+  font-size: 0.9rem;
+  line-height: 1.6;
   color: var(--text-primary);
   white-space: pre-wrap;
   font-family: 'Georgia', serif;
+  background: rgba(245, 245, 220, 0.3);
+  padding: 0.8rem;
+  border-radius: 6px;
+  border-left: 2px solid var(--accent-color);
+  max-height: 120px;
+  overflow-y: auto;
 }
 
 .no-results {
