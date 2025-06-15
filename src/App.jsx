@@ -5,6 +5,7 @@ import { DynastyChart } from './components/DynastyChart/DynastyChart.jsx'
 import { SearchFilter } from './components/SearchFilter/SearchFilter.jsx'
 import { PoemList } from './components/PoemList/PoemList.jsx'
 import { Pagination } from './components/Pagination/Pagination.jsx'
+import { WordCloudComponent } from './components/WordCloud/WordCloud.jsx'
 
 // 主应用组件
 export const App = () => {
@@ -19,6 +20,8 @@ export const App = () => {
     currentPage: 1,
     totalPages: 1
   })
+  const [selectedDynasty, setSelectedDynasty] = useState('')
+  const [wordCloudPoems, setWordCloudPoems] = useState([])
   const itemsPerPage = 10
 
   // 初始化数据
@@ -35,6 +38,9 @@ export const App = () => {
       const initialPaginatedData = dataManager.getPaginatedPoems(1, itemsPerPage)
       setPaginatedData(initialPaginatedData)
       
+      // 初始化词云数据（显示所有诗歌）
+      setWordCloudPoems(dataManager.getAllPoems())
+      
       setLoading(false)
     }
 
@@ -47,6 +53,11 @@ export const App = () => {
     setCurrentPage(1)
     const newPaginatedData = dataManager.getPaginatedPoems(1, itemsPerPage)
     setPaginatedData(newPaginatedData)
+    
+    // 更新选中的朝代和词云数据
+    const dynasty = filters.dynasty || ''
+    setSelectedDynasty(dynasty)
+    setWordCloudPoems(dataManager.getPoemsByDynasty(dynasty))
   }
 
   // 处理分页变化
@@ -92,11 +103,22 @@ export const App = () => {
 
         {/* 中间区域 - 左右分栏 */}
         <section className="dashboard-content">
-          {/* 左侧 - 朝代分布图表 */}
+          {/* 左侧 - 朝代分布图表和词云 */}
           <div className="dashboard-left">
             <div className="panel">
               <h3 className="panel-title">朝代分布</h3>
               <DynastyChart dynastyStats={dynastyStats} />
+            </div>
+            <div className="word-cloud-panel">
+              <div className="word-cloud-left">
+                <WordCloudComponent 
+                  poems={wordCloudPoems}
+                  selectedDynasty={selectedDynasty}
+                />
+              </div>
+              <div className="word-cloud-right">
+                {/* 右侧区域暂时留空 */}
+              </div>
             </div>
           </div>
 

@@ -237,4 +237,12 @@ export class DataManager {
   getFilteredPoems() {
     return this.filteredPoems
   }
+
+  // 根据朝代获取诗歌（用于词云）
+  getPoemsByDynasty(dynasty) {
+    if (!dynasty) {
+      return this.allPoems
+    }
+    return this.allPoems.filter(poem => poem.dynasty === dynasty)
+  }
 } 

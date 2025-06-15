@@ -22,7 +22,6 @@ export const DynastyChart = ({ dynastyStats }) => {
 
   return (
     <div className={styles.chartContainer}>
-      <div className={styles.chartTitle}>各朝代诗歌数量分布</div>
       <div className={styles.chartBars}>
         {sortedDynasties.map(([dynasty, count]) => {
           const percentage = (count / maxCount) * 100
