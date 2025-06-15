@@ -135,16 +135,18 @@ body {
 }
 
 .word-cloud-left {
-  flex: 0.6;
+  flex: 1;
   display: flex;
+  min-width: 240px; /* 确保词云有足够的显示空间 */
 }
 
 .word-cloud-right {
-  flex: 1.4;
+  flex: 2;
   background: var(--panel-bg);
   border-radius: 12px;
   border: 1px solid rgba(139, 69, 19, 0.1);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* 防止内容溢出影响布局 */
 }
 
 .dashboard-right .panel {

@@ -137,7 +137,7 @@ export const WordCloudComponent = ({ poems, selectedDynasty }) => {
         minSize: 10,
         drawOutOfBound: false,
         shrinkToFit: true,
-        origin: [110, 80]
+        origin: [120, 90]
       }
       
       try {
@@ -153,8 +153,8 @@ export const WordCloudComponent = ({ poems, selectedDynasty }) => {
       <div className={styles.wordCloudCanvas}>
         <canvas
           ref={canvasRef}
-          width={220}
-          height={160}
+          width={240}
+          height={180}
           className={styles.canvas}
         />
       </div>

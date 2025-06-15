@@ -6,6 +6,7 @@ import { SearchFilter } from './components/SearchFilter/SearchFilter.jsx'
 import { PoemList } from './components/PoemList/PoemList.jsx'
 import { Pagination } from './components/Pagination/Pagination.jsx'
 import { WordCloudComponent } from './components/WordCloud/WordCloud.jsx'
+import { LocationEvent } from './components/LocationEvent/LocationEvent.jsx'
 
 // 主应用组件
 export const App = () => {
@@ -117,7 +118,7 @@ export const App = () => {
                 />
               </div>
               <div className="word-cloud-right">
-                {/* 右侧区域暂时留空 */}
+                <LocationEvent />
               </div>
             </div>
           </div>
