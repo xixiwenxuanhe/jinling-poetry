@@ -2,6 +2,10 @@
 
 一个展示金陵（南京）历朝诗歌文化遗产的数据可视化大屏项目，包含诗歌统计、朝代分布、词云分析和历史事件时间轴等功能。
 
+## 📎 在线演示
+
+使用 cf5部署到：[https://jinling-poetry.pages.dev/](https://jinling-poetry.pages.dev/)
+
 ![项目截图](view.png)
 
 ## 技术栈
@@ -66,4 +70,4 @@ npm install
 npm run dev
 ```
 
-应用将在 http://localhost:5173 运行 
+应用将在 http://localhost:5173 运行
