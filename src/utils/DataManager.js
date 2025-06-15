@@ -9,7 +9,8 @@ export class DataManager {
     this.poemsPerPage = 10
     this.filters = {
       searchTerm: '',
-      dynasty: ''
+      dynasty: '',
+      searchType: 'all' // 'all', 'title', 'author', 'content'
     }
   }
 
@@ -143,10 +144,31 @@ export class DataManager {
       // 搜索词筛选
       if (this.filters.searchTerm) {
         const searchTerm = this.filters.searchTerm.toLowerCase()
-        const matchesSearch = 
-          poem.title.toLowerCase().includes(searchTerm) ||
-          poem.author.toLowerCase().includes(searchTerm) ||
-          poem.content.toLowerCase().includes(searchTerm)
+        let matchesSearch = false
+        
+        // 确保字段存在且为字符串
+        const title = (poem.title || '').toString().toLowerCase()
+        const author = (poem.author || '').toString().toLowerCase()
+        const content = (poem.content || '').toString().toLowerCase()
+        
+        switch (this.filters.searchType) {
+          case 'title':
+            matchesSearch = title.includes(searchTerm)
+            break
+          case 'author':
+            matchesSearch = author.includes(searchTerm)
+            break
+          case 'content':
+            matchesSearch = content.includes(searchTerm)
+            break
+          case 'all':
+          default:
+            matchesSearch = 
+              title.includes(searchTerm) ||
+              author.includes(searchTerm) ||
+              content.includes(searchTerm)
+            break
+        }
         
         if (!matchesSearch) return false
       }
@@ -183,7 +205,8 @@ export class DataManager {
   resetFilters() {
     this.filters = {
       searchTerm: '',
-      dynasty: ''
+      dynasty: '',
+      searchType: 'all'
     }
     this.filteredPoems = [...this.allPoems]
     this.currentPage = 1

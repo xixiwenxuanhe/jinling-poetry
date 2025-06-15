@@ -5,6 +5,7 @@ import styles from './SearchFilter.module.css'
 export const SearchFilter = ({ dynastyStats, onFilterChange }) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [dynasty, setDynasty] = useState('')
+  const [searchType, setSearchType] = useState('all') // 'all', 'title', 'author', 'content'
 
   const dynastyOrder = {
     '六朝': 1,
@@ -17,43 +18,56 @@ export const SearchFilter = ({ dynastyStats, onFilterChange }) => {
     '当代': 8
   }
 
-  // 防抖处理搜索
-  const debounce = useCallback((func, wait) => {
-    let timeout
-    return (...args) => {
-      clearTimeout(timeout)
-      timeout = setTimeout(() => func(...args), wait)
-    }
-  }, [])
-
-  const debouncedFilterChange = useCallback(
-    debounce((filters) => onFilterChange(filters), 300),
-    [onFilterChange]
-  )
-
   const handleSearchChange = (e) => {
     const value = e.target.value
     setSearchTerm(value)
-    debouncedFilterChange({ searchTerm: value, dynasty })
+    onFilterChange({ searchTerm: value, dynasty, searchType })
   }
 
   const handleDynastyChange = (e) => {
     const value = e.target.value
     setDynasty(value)
-    onFilterChange({ searchTerm, dynasty: value })
+    onFilterChange({ searchTerm, dynasty: value, searchType })
+  }
+
+  const handleSearchTypeChange = (e) => {
+    const value = e.target.value
+    setSearchType(value)
+    onFilterChange({ searchTerm, dynasty, searchType: value })
   }
 
   const sortedDynasties = Object.keys(dynastyStats)
     .sort((a, b) => (dynastyOrder[a] || 999) - (dynastyOrder[b] || 999))
 
+  const getPlaceholder = () => {
+    switch(searchType) {
+      case 'title': return '搜索诗歌标题...'
+      case 'author': return '搜索作者姓名...'
+      case 'content': return '搜索诗歌内容...'
+      default: return '搜索诗歌标题、作者或内容...'
+    }
+  }
+
   return (
     <div className={styles.searchFilterContainer}>
       <div className={styles.searchBox}>
+        <div className={styles.searchTypeSelector}>
+          <select 
+            value={searchType}
+            onChange={handleSearchTypeChange}
+            className={styles.searchTypeSelect}
+          >
+            <option value="all">全部</option>
+            <option value="title">标题</option>
+            <option value="author">作者</option>
+            <option value="content">内容</option>
+          </select>
+        </div>
         <input 
           type="text" 
           value={searchTerm}
           onChange={handleSearchChange}
-          placeholder="搜索诗歌标题、作者或内容..."
+          placeholder={getPlaceholder()}
           className={styles.searchInput}
         />
       </div>

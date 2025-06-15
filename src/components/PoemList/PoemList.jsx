@@ -2,24 +2,7 @@ import React from 'react'
 import styles from './PoemList.module.css'
 
 // 诗歌列表组件
-export const PoemList = ({ poems, loading, error }) => {
-  if (loading) {
-    return (
-      <div className={styles.loadingContainer}>
-        <div className={styles.loadingSpinner}></div>
-        <div className={styles.loadingText}>加载中...</div>
-      </div>
-    )
-  }
-
-  if (error) {
-    return (
-      <div className={styles.errorContainer}>
-        <div className={styles.errorMessage}>{error}</div>
-      </div>
-    )
-  }
-
+export const PoemList = ({ poems }) => {
   if (poems.length === 0) {
     return <div className={styles.noResults}>未找到匹配的诗歌</div>
   }

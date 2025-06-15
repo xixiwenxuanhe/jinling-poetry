@@ -10,7 +10,6 @@ import { Pagination } from './components/Pagination/Pagination.jsx'
 export const App = () => {
   const [dataManager] = useState(() => new DataManager())
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
   const [stats, setStats] = useState({})
   const [dynastyStats, setDynastyStats] = useState({})
   const [currentPage, setCurrentPage] = useState(1)
@@ -25,24 +24,18 @@ export const App = () => {
   // 初始化数据
   useEffect(() => {
     const initializeApp = async () => {
-      try {
-        setLoading(true)
-        await dataManager.loadData('./data/金陵历朝诗歌.csv')
-        
-        // 更新统计数据
-        setStats(dataManager.getStats())
-        setDynastyStats(dataManager.getDynastyStats())
-        
-        // 初始化分页数据
-        const initialPaginatedData = dataManager.getPaginatedPoems(1, itemsPerPage)
-        setPaginatedData(initialPaginatedData)
-        
-        setLoading(false)
-      } catch (err) {
-        console.error('应用初始化失败:', err)
-        setError('数据加载失败，请刷新页面重试')
-        setLoading(false)
-      }
+      setLoading(true)
+      await dataManager.loadData('./data/金陵历朝诗歌.csv')
+      
+      // 更新统计数据
+      setStats(dataManager.getStats())
+      setDynastyStats(dataManager.getDynastyStats())
+      
+      // 初始化分页数据
+      const initialPaginatedData = dataManager.getPaginatedPoems(1, itemsPerPage)
+      setPaginatedData(initialPaginatedData)
+      
+      setLoading(false)
     }
 
     initializeApp()
@@ -80,19 +73,7 @@ export const App = () => {
     )
   }
 
-  if (error) {
-    return (
-      <div className="error-overlay">
-        <div className="error-content">
-          <div className="error-icon">⚠️</div>
-          <div className="error-message">{error}</div>
-          <button className="error-retry" onClick={() => window.location.reload()}>
-            重新加载
-          </button>
-        </div>
-      </div>
-    )
-  }
+
 
   return (
     <div className="dashboard">
@@ -130,8 +111,6 @@ export const App = () => {
               <div className="poem-display">
                 <PoemList 
                   poems={paginatedData.poems}
-                  loading={false}
-                  error={null}
                 />
                 <Pagination 
                   currentPage={paginatedData.currentPage}
@@ -145,11 +124,7 @@ export const App = () => {
         </section>
       </main>
 
-      {/* 底部状态栏 */}
-      <footer className="dashboard-footer">
-        <span>ChinaVis 2023 数据可视化挑战赛</span>
-        <span>数据更新时间: {new Date().toLocaleString()}</span>
-      </footer>
+
     </div>
   )
 } 
