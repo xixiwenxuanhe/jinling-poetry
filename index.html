@@ -1,13 +1,76 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>数观千年——金陵历朝诗韵</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <!-- 页面头部 -->
+      <header class="header">
+        <div class="container">
+          <h1 class="main-title">数观千年</h1>
+          <p class="subtitle">金陵历朝诗韵数据可视化</p>
+        </div>
+      </header>
+
+      <!-- 主要内容区域 -->
+      <main class="main-content">
+        <div class="container">
+          <!-- 数据概览 -->
+          <section class="overview">
+            <h2>数据概览</h2>
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-number" id="total-poems">-</div>
+                <div class="stat-label">诗歌总数</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" id="total-authors">-</div>
+                <div class="stat-label">诗人总数</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" id="dynasty-count">-</div>
+                <div class="stat-label">朝代数量</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" id="time-span">-</div>
+                <div class="stat-label">时间跨度</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 朝代分布 -->
+          <section class="dynasty-section">
+            <h2>朝代分布</h2>
+            <div class="dynasty-chart" id="dynasty-chart"></div>
+          </section>
+
+          <!-- 诗歌列表 -->
+          <section class="poem-section">
+            <h2>诗歌浏览</h2>
+            <div class="filter-controls">
+              <select id="dynasty-filter">
+                <option value="">全部朝代</option>
+              </select>
+              <input type="text" id="search-input" placeholder="搜索诗人或诗题...">
+            </div>
+            <div class="poem-list" id="poem-list"></div>
+            <div class="pagination" id="pagination"></div>
+          </section>
+        </div>
+      </main>
+
+      <!-- 页脚 -->
+      <footer class="footer">
+        <div class="container">
+          <p>&copy; 2023 ChinaVis数据可视化挑战赛 - 数观千年项目</p>
+        </div>
+      </footer>
+    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
