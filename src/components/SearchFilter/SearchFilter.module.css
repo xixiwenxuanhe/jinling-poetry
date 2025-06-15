@@ -1,0 +1,77 @@
+.search-filter-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: center;
+}
+
+.search-box {
+  flex: 1;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid rgba(139, 69, 19, 0.2);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(218, 165, 32, 0.1);
+}
+
+.search-input::placeholder {
+  color: var(--text-secondary);
+}
+
+.filter-box {
+  min-width: 200px;
+}
+
+.dynasty-filter {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid rgba(139, 69, 19, 0.2);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dynasty-filter:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(218, 165, 32, 0.1);
+}
+
+.dynasty-filter option {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  padding: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .search-filter-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .filter-box {
+    min-width: unset;
+    width: 100%;
+  }
+  
+  .search-input,
+  .dynasty-filter {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+  }
+} 
